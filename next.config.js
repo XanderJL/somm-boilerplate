@@ -26,7 +26,15 @@ const sentryConfig = {
  *
  * @type {import('next').NextConfig} */
 let nextConfig = {
-  reactStrictMode: true
+  eslint: {
+    ignoreDuringBuilds: Boolean(process.env.VERCEL)
+  },
+
+  reactStrictMode: true,
+
+  typescript: {
+    ignoreBuildErrors: Boolean(process.env.VERCEL)
+  }
 }
 
 nextConfig = withBundleAnalyzer(nextConfig)
