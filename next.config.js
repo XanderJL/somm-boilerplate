@@ -3,12 +3,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 const { withSentryConfig } = require('@sentry/nextjs')
 
+const SentryOptions = {
+  silent: true
+}
+
 /**
  * mutable next.js configuration to ensure third party plugins such as bundle
  * analyzer and sentry works as intended
  *
- * @type {import('next').NextConfig}
- */
+ * @type {import('next').NextConfig} */
 let nextConfig = {
   reactStrictMode: true
 }
@@ -17,8 +20,6 @@ let nextConfig = {
 nextConfig = withBundleAnalyzer(nextConfig)
 
 // https://github.com/getsentry/sentry-webpack-plugin#options
-nextConfig = withSentryConfig(nextConfig, {
-  silent: true
-})
+nextConfig = withSentryConfig(nextConfig, SentryOptions)
 
 module.exports = nextConfig

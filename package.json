@@ -23,7 +23,6 @@
     "@sentry/nextjs": "^6",
     "framer-motion": "^5",
     "next": "^12",
-    "next-compose-plugins": "^2",
     "next-plausible": "^3",
     "react": "^17",
     "react-dom": "^17",
