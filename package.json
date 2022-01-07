@@ -1,42 +1,69 @@
 {
   "name": "somm-boilerplate",
-  "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "cy:record": "cypress run --record",
     "analyze": "cross-env ANALYZE=true next build",
-    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "lint": "next lint",
-    "deadcode": "ts-prune"
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "build": "next build",
+    "cy:open": "cypress open",
+    "cy:record": "cypress run --record",
+    "cy:run": "cypress run",
+    "deadcode": "ts-prune | grep -v -E 'default|getStaticProps|getStaticPaths|getServerSideProps'",
+    "dev": "next dev",
+    "format": "prettier --write \"*.{js,json,ts}\" \"src/**/*.{css,js,cjs,mjs,json,jsx,md,ts,tsx}\"",
+    "lint": "next lint --fix --no-cache && tsc --noEmit --pretty",
+    "prepare": "husky install",
+    "start": "next start"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.7.4",
+    "@chakra-ui/react": "^1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@next/bundle-analyzer": "^12.0.7",
-    "@sentry/nextjs": "^6.16.1",
+    "@next/bundle-analyzer": "^12",
+    "@sentry/nextjs": "^6",
     "framer-motion": "^5",
-    "next": "^12.0.8-canary.19",
-    "next-plausible": "^3.1.4",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-hook-form": "^7.22.5",
-    "react-icons": "^4.3.1",
-    "react-query": "^3.34.7"
+    "next": "^12",
+    "next-plausible": "^3",
+    "react": "^17",
+    "react-dom": "^17",
+    "react-hook-form": "^7",
+    "react-icons": "^4",
+    "react-query": "^3"
   },
   "devDependencies": {
-    "@types/node": "17.0.8",
-    "@types/react": "17.0.38",
-    "cypress": "^9.2.0",
-    "eslint": "8.6.0",
-    "eslint-config-next": "12.0.7",
-    "ts-prune": "^0.10.3",
-    "typescript": "4.5.4",
-    "url": "^0.11.0"
-  }
+    "@types/node": "17",
+    "@types/react": "17",
+    "@types/react-dom": "17",
+    "@typescript-eslint/eslint-plugin": "^5",
+    "@typescript-eslint/parser": "^5",
+    "cypress": "^9",
+    "eslint": "^8",
+    "eslint-config-next": "^12",
+    "eslint-config-prettier": "^8",
+    "eslint-plugin-prettier": "^4",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-simple-import-sort": "^7",
+    "husky": "^7",
+    "lint-staged": "^12",
+    "prettier": "^2",
+    "ts-prune": "^0",
+    "typescript": "^4",
+    "url": "^0"
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ],
+    "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "jsxSingleQuote": true,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
+  },
+  "private": true
 }

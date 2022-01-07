@@ -1,6 +1,8 @@
-import { Box, Flex, FlexProps } from '@chakra-ui/react'
 import React, { ReactElement } from 'react'
+
 import Navbar from './Navbar'
+
+import { Box, Flex, FlexProps } from '@chakra-ui/react'
 
 interface Props extends FlexProps {}
 

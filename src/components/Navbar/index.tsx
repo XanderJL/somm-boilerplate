@@ -1,7 +1,9 @@
-import { Box, Container, Flex } from '@chakra-ui/react'
 import React, { ReactElement } from 'react'
-import { AiOutlineSmile } from 'react-icons/ai'
+
 import NavLinks from './Navlinks'
+
+import { Box, Container, Flex } from '@chakra-ui/react'
+import { AiOutlineSmile } from 'react-icons/ai'
 
 const Navbar = (): ReactElement => {
   return (

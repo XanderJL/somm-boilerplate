@@ -1,9 +1,22 @@
+// @ts-nocheck
+
+// https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 const { withSentryConfig } = require('@sentry/nextjs')
 
-const SentryOptions = {
+/**
+ * Additional config options for the Sentry Webpack plugin. Keep in mind that
+ * the following options are set automatically, and overriding them is not
+ * recommended:
+ *   release, url, org, project, authToken, configFile, stripPrefix,
+ *   urlPrefix, include, ignore
+ *
+ * @see https://github.com/getsentry/sentry-webpack-plugin#options
+ * @type {import('@sentry/nextjs/src/config/types').SentryWebpackPluginOptions}
+ */
+const sentryConfig = {
   silent: true
 }
 
@@ -13,13 +26,18 @@ const SentryOptions = {
  *
  * @type {import('next').NextConfig} */
 let nextConfig = {
-  reactStrictMode: true
+  eslint: {
+    ignoreDuringBuilds: Boolean(process.env.VERCEL)
+  },
+
+  reactStrictMode: true,
+
+  typescript: {
+    ignoreBuildErrors: Boolean(process.env.VERCEL)
+  }
 }
 
-// https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer
 nextConfig = withBundleAnalyzer(nextConfig)
-
-// https://github.com/getsentry/sentry-webpack-plugin#options
-nextConfig = withSentryConfig(nextConfig, SentryOptions)
+nextConfig = withSentryConfig(nextConfig, sentryConfig)
 
 module.exports = nextConfig
