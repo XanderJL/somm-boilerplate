@@ -12,6 +12,7 @@
     "dev": "next dev",
     "format": "prettier --write \"*.{js,json,ts}\" \"src/**/*.{css,js,cjs,mjs,json,jsx,md,ts,tsx}\"",
     "lint": "next lint --fix --no-cache && tsc --noEmit --pretty",
+    "prepare": "husky install",
     "start": "next start"
   },
   "dependencies": {
@@ -42,10 +43,20 @@
     "eslint-plugin-prettier": "^4",
     "eslint-plugin-react": "^7",
     "eslint-plugin-simple-import-sort": "^7",
+    "husky": "^7",
+    "lint-staged": "^12",
     "prettier": "^2",
     "ts-prune": "^0",
     "typescript": "^4",
     "url": "^0"
+  },
+  "lint-staged": {
+    "*.{json,md}": [
+      "prettier --write"
+    ],
+    "**/*.{js,cjs,mjs,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
   },
   "prettier": {
     "arrowParens": "avoid",
