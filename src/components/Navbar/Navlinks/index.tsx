@@ -1,7 +1,9 @@
+import React, { ReactElement } from 'react'
+
+import links from './links'
+
 import { Grid } from '@chakra-ui/react'
 import Link from 'components/Link'
-import React, { ReactElement } from 'react'
-import links from './links'
 
 const NavLinks = (): ReactElement => {
   return (
