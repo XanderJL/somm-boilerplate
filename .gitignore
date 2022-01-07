@@ -12,5 +12,6 @@
 /coverage
 /node_modules
 /out/
+sentry.properties
 
 !.env.example
