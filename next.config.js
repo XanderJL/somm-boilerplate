@@ -13,8 +13,7 @@ const SentryOptions = {
  *
  * @type {import('next').NextConfig} */
 let nextConfig = {
-  reactStrictMode: true,
-  outputFileTracing: false // Temporary fix for Sentry + Next 12 bug
+  reactStrictMode: true
 }
 
 // https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer
