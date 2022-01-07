@@ -1,22 +1,43 @@
-import { createContext, FC, ReactNode } from 'react'
+import { useRouter } from 'next/router'
+import { createContext, FC, useState, useEffect } from 'react'
 
-interface DialogContextInterface {
-  title?: string
-  data?: ReactNode
+interface DialogContextProps {
+  currentDialog: string | null
+  dialogData?: any
+  closeDialog?: () => void
+  openDialog?: (dialog: string, data?: any) => void
 }
 
-const DialogContext = createContext<DialogContextInterface | null>(null)
+const DialogContext = createContext<DialogContextProps | null>(null)
 
-const defaultContext: DialogContextInterface = {
-  title: 'Oops! Something Went Wrong.'
-}
+export const DialogProvider: FC = ({ children }) => {
+  const [currentDialog, setCurrentDialog] = useState<string | null>(null)
+  const [dialogData, setDialogData] = useState<any>(null)
+  const router = useRouter()
 
-const DialogProvider: FC = ({ children }) => {
+  /**
+   * When the route changes, close the dialog.
+   */
+  useEffect(() => {
+    closeDialog()
+  }, [router])
+
+  const closeDialog = () => setCurrentDialog(null)
+
+  const openDialog = (dialog: string, data?: any) => {
+    setCurrentDialog(dialog)
+    if (data) setDialogData(data)
+  }
+
+  const values: DialogContextProps = {
+    currentDialog,
+    dialogData,
+    closeDialog,
+    openDialog
+  }
   return (
-    <DialogContext.Provider value={defaultContext}>
-      {children}
-    </DialogContext.Provider>
+    <DialogContext.Provider value={values}>{children}</DialogContext.Provider>
   )
 }
 
-export default DialogProvider
+export default DialogContext
