@@ -11,7 +11,7 @@
     "deadcode": "ts-prune | grep -v -E 'default|getStaticProps|getStaticPaths|getServerSideProps'",
     "dev": "next dev",
     "format": "prettier --write \"*.{js,json,ts}\" \"src/**/*.{css,js,cjs,mjs,json,jsx,md,ts,tsx}\"",
-    "lint": "next lint",
+    "lint": "next lint --fix --no-cache && tsc --noEmit --pretty",
     "start": "next start"
   },
   "dependencies": {
@@ -33,17 +33,19 @@
   "devDependencies": {
     "@types/node": "17",
     "@types/react": "17",
+    "@typescript-eslint/eslint-plugin": "^5",
+    "@typescript-eslint/parser": "^5",
     "cypress": "^9",
     "eslint": "^8",
     "eslint-config-next": "^12",
+    "eslint-config-prettier": "^8",
+    "eslint-plugin-prettier": "^4",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-simple-import-sort": "^7",
     "prettier": "^2",
     "ts-prune": "^0",
     "typescript": "^4",
     "url": "^0"
-  },
-  "eslintConfig": {
-    "extends": "next/core-web-vitals",
-    "root": true
   },
   "prettier": {
     "arrowParens": "avoid",
