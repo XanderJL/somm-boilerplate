@@ -1,35 +1,26 @@
-const withPlugins = require('next-compose-plugins')
-const withBundleAnalyzer = require('@next/bundle-analyzer')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
 const { withSentryConfig } = require('@sentry/nextjs')
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const SentryOptions = {
+  silent: true
+}
+
+/**
+ * mutable next.js configuration to ensure third party plugins such as bundle
+ * analyzer and sentry works as intended
+ *
+ * @type {import('next').NextConfig} */
+let nextConfig = {
   reactStrictMode: true,
-  outputFileTracing: false // Temporary fix for Next 12 bug
+  outputFileTracing: false // Temporary fix for Sentry + Next 12 bug
 }
 
-const SentryWebpackPluginOptions = {
-  // Additional config options for the Sentry Webpack plugin. Keep in mind that
-  // the following options are set automatically, and overriding them is not
-  // recommended:
-  //   release, url, org, project, authToken, configFile, stripPrefix,
-  //   urlPrefix, include, ignore
+// https://github.com/vercel/next.js/tree/canary/packages/next-bundle-analyzer
+nextConfig = withBundleAnalyzer(nextConfig)
 
-  silent: true // Suppresses all logs
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options.,
-}
+// https://github.com/getsentry/sentry-webpack-plugin#options
+nextConfig = withSentryConfig(nextConfig, SentryOptions)
 
-const bundleAnalyzerOptions = {
-  enabled: process.env.ANALYZE === 'true'
-}
-
-module.exports = withSentryConfig(
-  withPlugins([[withBundleAnalyzer, bundleAnalyzerOptions]], nextConfig),
-  SentryWebpackPluginOptions
-)
-
-// module.exports = withPlugins(
-//   [[withBundleAnalyzer, bundleAnalyzerOptions]],
-//   nextConfig
-// )
+module.exports = nextConfig
