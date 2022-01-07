@@ -1,13 +1,11 @@
 const withPlugins = require('next-compose-plugins')
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+const withBundleAnalyzer = require('@next/bundle-analyzer')
 const { withSentryConfig } = require('@sentry/nextjs')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  outputFileTracing: false, // Temporary fix for Next 12 bug
+  outputFileTracing: false // Temporary fix for Next 12 bug
 }
 
 const SentryWebpackPluginOptions = {
@@ -22,7 +20,16 @@ const SentryWebpackPluginOptions = {
   // https://github.com/getsentry/sentry-webpack-plugin#options.,
 }
 
+const bundleAnalyzerOptions = {
+  enabled: process.env.ANALYZE === 'true'
+}
+
 module.exports = withSentryConfig(
-  withPlugins([withBundleAnalyzer, withSentryConfig], nextConfig),
+  withPlugins([[withBundleAnalyzer, bundleAnalyzerOptions]], nextConfig),
   SentryWebpackPluginOptions
 )
+
+// module.exports = withPlugins(
+//   [[withBundleAnalyzer, bundleAnalyzerOptions]],
+//   nextConfig
+// )

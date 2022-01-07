@@ -38,3 +38,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 [rafce](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 
 no `grep -v` on MacOS? :shrug:
+
+this repo requires node v16
