@@ -39,5 +39,16 @@
     "typescript": "^4",
     "url": "^0"
   },
+  "eslintConfig": {
+    "extends": "next/core-web-vitals",
+    "root": true
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "jsxSingleQuote": true,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
+  },
   "private": true
 }
